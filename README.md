@@ -22,8 +22,7 @@ section will be completed as soon as possible.
 
 ## Authors
 
-This software, in it’s entirety, is made, provided, and maintained by Warp, and as such, implements aspects of proprietary services also made by Warp. These services include, but are not limited to, ``Beans``, ``Stargate``, and ``Portal``.
-
+This software, in it’s entirety, is made, provided, and maintained by Warp.
 Warp © 2019-2020
 
 ***
