@@ -40,6 +40,36 @@ public class Operation {
         return this;
     }
 
+    public Operation sin() {
+        this.number = Math.sin(this.number);
+        return this;
+    }
+
+    public Operation cos() {
+        this.number = Math.cos(this.number);
+        return this;
+    }
+
+    public Operation tan() {
+        this.number = Math.tan(this.number);
+        return this;
+    }
+
+    public Operation csc() {
+        this.number = 1 / Math.sin(this.number);
+        return this;
+    }
+
+    public Operation sec() {
+        this.number = 1 / Math.cos(this.number);
+        return this;
+    }
+
+    public Operation cot() {
+        this.number = 1 / Math.tan(this.number);
+        return this;
+    }
+
     public Operation multiply(Operation operation) {
         this.multiply(operation.toDouble());
         return this;

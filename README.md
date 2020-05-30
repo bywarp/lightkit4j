@@ -1,4 +1,4 @@
-# lightkit4j
+# lightkit (for Java)
 
 
 ### What is it?
@@ -22,7 +22,7 @@ section will be completed as soon as possible.
 
 ## Authors
 
-This software, in it’s entirety, is made, provided, and maintained by Warp.
+This software, in its entirety, is made, provided, and maintained by Warp Studios.
 Warp © 2019-2020
 
 ***
