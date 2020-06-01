@@ -170,7 +170,7 @@ public class Ensure {
      *
      * @return if the expected equals the actual
      */
-    public static <T> boolean length(@NonNull T input, @NonNull int expected) {
+    public static <T> boolean length(@NonNull T input, int expected) {
         String string = String.valueOf(input);
         return string.length() == expected;
     }
