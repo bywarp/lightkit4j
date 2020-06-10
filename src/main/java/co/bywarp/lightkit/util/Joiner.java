@@ -17,7 +17,7 @@ public class Joiner {
         StringBuilder builder = new StringBuilder(strings.get(0));
         for (int i = 1; i<strings.size(); i++) {
             String next = strings.get(i);
-            builder.append(separator + " " + next);
+            builder.append(separator + next);
         }
 
         return builder.toString().trim();

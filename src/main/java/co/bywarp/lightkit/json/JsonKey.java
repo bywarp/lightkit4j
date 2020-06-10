@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 public @interface JsonKey {
 
     String name();
-    Class<?> type() default String.class;
+    boolean embed() default false;
+
 
 }
