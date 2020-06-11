@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -74,7 +75,7 @@ public class Ensure {
     }
 
     /**
-     * Ensures the the provided object is not null.
+     * Ensures that the provided object is not null.
      *
      * @param object the object
      * @param exception the exception to throw
@@ -96,6 +97,34 @@ public class Ensure {
         } catch (NoSuchFieldException | IllegalAccessException ignored) {}
 
         throw exception;
+    }
+
+    /**
+     * Ensures that the provided index is in range
+     * for the provided list structure.
+     *
+     * @param list the list
+     * @param index the index
+     * @param <T> the list item type
+     *
+     * @return whether or not the index is in range
+     */
+    public static <T> boolean inRange(List<T> list, int index) {
+        return index >= 0 && index < list.size();
+    }
+
+    /**
+     * Ensures that the provided index is in range
+     * for the provided array.
+     *
+     * @param array the array
+     * @param index the index
+     * @param <T> the array type
+     *
+     * @return whether or not the index is in range
+     */
+    public static <T> boolean inRange(T[] array, int index) {
+        return index >= 0 && index < array.length;
     }
 
     /**
