@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface JsonKey {
 
     String name();
-    boolean embed() default false;
+    Class<?> type() default Void.class;
 
 
 }
