@@ -221,7 +221,7 @@ public class StringUtils {
             sb.append(string);
         }
 
-        return sb.toString().trim();
+        return sb.toString();
     }
 
 }

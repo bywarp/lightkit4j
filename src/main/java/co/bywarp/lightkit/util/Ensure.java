@@ -37,7 +37,7 @@ public class Ensure {
      * @param <T> the object type
      * @throws IllegalArgumentException if the object is null
      */
-    public static <T> void nonNull(T object) {
+    public static <T> void notNull(T object) {
         if (object == null) {
             throw new IllegalArgumentException("Object cannot be null");
         }
@@ -52,7 +52,7 @@ public class Ensure {
      *
      * @throws IllegalArgumentException if the object is null
      */
-    public static <T> void nonNull(T object, String message) {
+    public static <T> void notNull(T object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
         }
@@ -68,7 +68,7 @@ public class Ensure {
      *
      * @throws K if the object is null
      */
-    public static <T, K extends Exception> void nonNull(T object, K exception) throws K {
+    public static <T, K extends Exception> void notNull(T object, K exception) throws K {
         if (object == null) {
             throw exception;
         }
@@ -85,7 +85,7 @@ public class Ensure {
      *
      * @throws K if the object is null
      */
-    public static <T, K extends Exception> void nonNull(T object, K exception, String message) throws K {
+    public static <T, K extends Exception> void notNull(T object, K exception, String message) throws K {
         if (object != null) {
             return;
         }

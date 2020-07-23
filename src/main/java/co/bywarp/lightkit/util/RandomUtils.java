@@ -22,27 +22,75 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import lombok.NonNull;
+
 public class RandomUtils {
 
+    /**
+     * Computes a random integer
+     * between the two provided
+     * bounds.
+     *
+     * @param min the minimum number
+     * @param max the maximum number
+     * @return the random integer
+     */
     public static int random(final int min, final int max) {
         final Random ran = new Random();
         return ran.ints(min, max).findFirst().getAsInt();
     }
 
-    public static boolean random() {
-        return new Random().nextBoolean();
-    }
-
+    /**
+     * Computes a random integer
+     * between the two provided
+     * bounds.
+     *
+     * @param min the minimum number
+     * @param max the maximum number
+     * @return the random integer
+     */
     public static int random(final double min, final double max) {
         return random((int) min, (int) max);
     }
 
-    public static <T> T random(List<T> list) {
+    /**
+     * Computes a random boolean
+     * @return a random boolean
+     */
+    public static boolean random() {
+        return new Random().nextBoolean();
+    }
+
+    /**
+     * Retrieves a random element
+     * of the provided list.
+     *
+     * @param list the list
+     * @param <T> the type of element
+     * @return the randomly selected element
+     */
+    public static <T> T random(@NonNull List<T> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
         return list.get(random(0, list.size()));
     }
 
-    public static <K, V> V random(Map<K, V> map) {
-        return random(new ArrayList<>(map.entrySet())).getValue();
+    /**
+     * Retrieves a random entry
+     * from the provided map.
+     *
+     * @param map the map
+     * @param <K> the key type
+     * @param <V> the value type
+     *
+     * @return the randomly selected entry
+     */
+    public static <K, V> Map.Entry<K, V> random(Map<K, V> map) {
+        if (map.isEmpty()) {
+            return null;
+        }
+        return random(new ArrayList<>(map.entrySet()));
     }
 
 }

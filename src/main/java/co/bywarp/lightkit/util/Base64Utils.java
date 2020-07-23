@@ -21,18 +21,48 @@ import java.util.Base64;
 
 public class Base64Utils {
 
-    public static String encode(String s) {
-        return encode(s.getBytes());
+    /**
+     * Encodes the provided string to a
+     * RFC 4648 compatible Base64 encoded
+     * string.
+     *
+     * @param input the string to encode
+     * @return the encoded string
+     */
+    public static String encode(String input) {
+        return encode(input.getBytes());
     }
 
+    /**
+     * Encodes the provided bytes to a
+     * RFC 4648 compatible Base64 encoded
+     * string.
+     *
+     * @param bytes the bytes to encode
+     * @return the encoded string
+     */
     public static String encode(byte[] bytes) {
         return new String(Base64.getEncoder().encode(bytes));
     }
 
-    public static String decode(String s) {
-        return decode(s.getBytes());
+    /**
+     * Decodes a RFC 4648 compatible
+     * encoded Base64 string.
+     *
+     * @param input the string to decode
+     * @return the decoded string
+     */
+    public static String decode(String input) {
+        return decode(input.getBytes());
     }
 
+    /**
+     * Decodes RFC 4648 compatible
+     * Base64 encoded bytes.
+     *
+     * @param bytes the bytes to decode
+     * @return the decoded string
+     */
     public static String decode(byte[] bytes) {
         return new String(Base64.getDecoder().decode(bytes));
     }

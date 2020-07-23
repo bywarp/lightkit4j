@@ -22,10 +22,26 @@ import java.util.List;
 
 public class Joiner {
 
+    /**
+     * Joins the specified strings
+     * by a delimiting string.
+     *
+     * @param separator the delimiter
+     * @param strings the strings to join
+     * @return the joined strings
+     */
     public static String join(String separator, String... strings) {
         return join(separator, Arrays.asList(strings));
     }
 
+    /**
+     * Joins the specified strings
+     * by a delimiting string.
+     *
+     * @param separator the delimiter
+     * @param strings the strings to join
+     * @return the joined strings
+     */
     public static String join(String separator, List<String> strings) {
         if (strings.size() <= 0) {
             return "";

@@ -20,7 +20,6 @@ package co.bywarp.lightkit.util;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -35,22 +34,46 @@ public class TimeUtils {
     public static final long DAY = 24 * 60 * 60 * 1000;
     public static final long LONG_NAN = -7777L;
 
+    /**
+     * Formats a millis time string
+     * using a provided date format.
+     *
+     * @param format the date format
+     * @param input the input millis
+     * @return the formatted date string
+     */
     public static String format(SimpleDateFormat format, long input) {
         return format.format(input);
     }
 
-    public static String format(Long input) {
+    /**
+     * Formats a millis time string
+     * using the default date format.
+     *
+     * @param input the input millis
+     * @return the formatted date string
+     */
+    public static String format(long input) {
         return DATE_FORMAT.format(input);
     }
 
-    public static String formatStdDate(Long input) {
-        return DATE_FORMAT.format(input);
+    /**
+     * Formats a millis time string
+     * using the default date format.
+     *
+     * @param input the date
+     * @return the formatted date string
+     */
+    public static String format(Date input) {
+        return format(input.getTime());
     }
 
-    public static String formatStdDate(Date input) {
-        return formatStdDate(input.getTime());
-    }
-
+    /**
+     * Formats a millis time difference.
+     *
+     * @param time the time difference
+     * @return the duration string
+     */
     public static String getTime(long time) {
         int seconds = (int)(time / 1000L) % 60;
         int minutes = (int)(time / 60000L % 60L);
@@ -69,26 +92,34 @@ public class TimeUtils {
         return y + ", " + mo + ", " + d + ", " + h + ", " + m + ", " + s;
     }
 
+    /**
+     * Returns whether an "s" should
+     * follow a string given an integer.
+     *
+     * @param i the integer
+     * @return the suffix
+     */
     public static String numberEnding(int i) {
         return i == 1 ? "":"s";
     }
 
-    public static boolean occurredInLastDay(long l1) {
-        return l1 > System.currentTimeMillis() - DAY;
+    /**
+     * Returns whether a millis date time
+     * occurred within the last day.
+     *
+     * @param time the millis time
+     * @return if it occurred within the last day
+     */
+    public static boolean occurredInLastDay(long time) {
+        return time > System.currentTimeMillis() - DAY;
     }
 
-    public static String fancyConvert(long time, String colorCode) {
-        int second = (int)(time / 1000L) % 60;
-        int minutes = (int)(time / 60000L % 60L);
-        int hours = (int)(time / 3600000L % 24L);
-        int days = (int)(time / 86400000L % 30.4368D);
-        int month = (int)(time / 2.6297424E9D % 12.0D);
-        int year = (int)(time / 3.15569088E10D);
-
-        return year + " year(s), " + month + " month(s), " + days + " day(s), \n " + "&" + colorCode + hours + " hour(s), " + minutes
-                + " minute(s), \n " + "&" + colorCode + second + " second(s)";
-    }
-
+    /**
+     * Formats a millis duration.
+     *
+     * @param time the millis duration
+     * @return the formatted duration string
+     */
     public static String getLatestTimeValue(long time) {
         int second = (int)(time / 1000L) % 60;
         int minutes = (int)(time / 60000L % 60L);
@@ -130,6 +161,13 @@ public class TimeUtils {
         return sb.toString();
     }
 
+    /**
+     * Formats a millis duration
+     * with a more shortened output.
+     *
+     * @param time the millis duration
+     * @return the formatted duration string
+     */
     public static String getShortenedTimeValue(long time) {
         int second = (int)(time / 1000L) % 60;
         int minutes = (int)(time / 60000L % 60L);
@@ -171,10 +209,64 @@ public class TimeUtils {
         return sb.toString();
     }
 
-    public static String formatStdDecimal(double d) {
-        return STD_DECIMAL_FORMAT.format(d);
+    /**
+     * Formats a decimal according
+     * to the standard decimal format.
+     *
+     * @param input the inputted decimal
+     * @return the formatted decimal
+     */
+    public static String formatStdDecimal(double input) {
+        return STD_DECIMAL_FORMAT.format(input);
     }
 
+    /**
+     * Returns whether the inputted month
+     * and day numbers are valid in regards
+     * to the gregorian calendar standard.
+     *
+     * @param day the inputted day
+     * @param month the inputted month
+     * @return if the day/month combination is valid
+     */
+    public static boolean isDate(int day, int month) {
+        if (day < 1 || day > 31) {
+            return false;
+        }
+
+        // TODO: Add leap year detection
+        if (month == 2 && day > 29) {
+            return false;
+        }
+
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Parses a time string into millis.
+     *
+     * @apiNote the inputted string must
+     * consist of numbers and time specifiers.
+     * The string cannot consist of spaces, and
+     * the following specifiers are valid:
+     *  - "y" standing for years
+     *  - "M" standing for months
+     *  - "d" standing for days
+     *  - "h" standing for hours
+     *  - "m" standing for minutes
+     *  - "s" standing for seconds
+     *
+     * These can be combined in strings
+     * such as "1d50m30s" to yield 1 day,
+     * 50 minutes, and 30 seconds.
+     *
+     * @param input the inputted string
+     * @return the resulting time in millis
+     */
     public static long parse(String input) {
         if (input == null || input.isEmpty()) {
             return -1L;
@@ -215,12 +307,6 @@ public class TimeUtils {
                 return value * TimeUnit.SECONDS.toMillis(1L);
         }
         return -1L;
-    }
-
-    public static boolean isDate(int day, int month) {
-        Calendar cal = Calendar.getInstance();
-        return cal.get(Calendar.DAY_OF_MONTH) == day
-                && cal.get(Calendar.MONTH) == month - 1;
     }
 
 }

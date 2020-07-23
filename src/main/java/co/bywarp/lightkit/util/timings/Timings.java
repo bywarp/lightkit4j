@@ -25,7 +25,6 @@ public class Timings {
 
     private long start;
     private String task;
-
     private Logger logger;
 
     public Timings(String prefix, String task) {
@@ -34,22 +33,79 @@ public class Timings {
         this.logger = new Logger(prefix);
     }
 
+    /**
+     * Completes the timings and records
+     * the time it took to stdout.
+     */
     public void complete() {
         long elapsed = (System.currentTimeMillis() - start);
         logger.info(task + " took " + getColorForElapsedTime(elapsed) + elapsed + "ms" + AnsiColors.RESET + ".");
     }
 
+    /**
+     * Completes the timings and records
+     * the time it took to stdout with
+     * a custom format.
+     *
+     * @apiNote the following replacers
+     * are available in the custom format:
+     *  - "%t" will be replaced with the
+     *         time it took in millis.
+     *
+     *  - "%c" will be replaced with the
+     *         color associated with the
+     *         elapsed time in millis.
+     *
+     *  - "%r" will be replaced with the
+     *         {@link AnsiColors#RESET} color
+     *         as this is needed so the console
+     *         colors don't get messed up.
+     *
+     * @param custom the custom format (read apiNote)
+     */
     public void complete(String custom) {
         long elapsed = (System.currentTimeMillis() - start);
         logger.info(parse(custom, elapsed));
     }
 
+    /**
+     * Completes the timings and records
+     * the time it took to stdout with an
+     * additional callback to perform once
+     * the timings are completed.
+     *
+     * @param callback the callback
+     */
     public void complete(Callback callback) {
         long elapsed = (System.currentTimeMillis() - start);
         logger.info(task + " took " + getColorForElapsedTime(elapsed) + elapsed + "ms" + AnsiColors.RESET + ".");
         callback.complete();
     }
 
+    /**
+     * Completes the timings and records
+     * the time it took to stdout with a
+     * custom format, and an additional
+     * callback to perform once the
+     * timings are completed.
+     *
+     * @apiNote the following replacers
+     * are available in the custom format:
+     *  - "%t" will be replaced with the
+     *         time it took in millis.
+     *
+     *  - "%c" will be replaced with the
+     *         color associated with the
+     *         elapsed time in millis.
+     *
+     *  - "%r" will be replaced with the
+     *         {@link AnsiColors#RESET} color
+     *         as this is needed so the console
+     *         colors don't get messed up.
+     *
+     * @param callback the callback
+     * @param custom the custom format (read apiNote)
+     */
     public void complete(Callback callback, String custom) {
         long elapsed = (System.currentTimeMillis() - start);
         logger.info(parse(custom, elapsed));
