@@ -5,7 +5,7 @@
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ *  
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -15,4 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'lightkit4j'
+package co.bywarp.lightkit.util.logger;
+
+import co.bywarp.lightkit.util.AnsiColors;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum LoggingLevel {
+
+    INFO("INFO", AnsiColors.GREEN, 1),
+    DEBUG("DEV", AnsiColors.CYAN, 2),
+    WARNING("WARN", AnsiColors.YELLOW, 1),
+    SEVERE("ERR", AnsiColors.RED, 2);
+
+    private String name;
+    private String color;
+    private int spaces;
+
+}

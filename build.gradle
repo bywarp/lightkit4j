@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2020 Warp Studios
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 plugins {
     id 'java'
     id 'maven'
@@ -10,7 +27,7 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-version '1.0-SNAPSHOT'
+version '0.1'
 sourceCompatibility = 1.8
 
 repositories {
@@ -65,10 +82,6 @@ publishing {
         shadow(MavenPublication) { publication ->
             groupId = "co.bywarp"
             artifactId = "lightkit"
-            if (System.getenv("COMMIT_HASH") != null) {
-                version = "0.1-" + System.getenv("COMMIT_HASH").substring(0, 7)
-            }
-
             project.shadow.component(publication)
         }
     }

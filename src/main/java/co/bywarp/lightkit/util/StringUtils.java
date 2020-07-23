@@ -18,6 +18,9 @@
 package co.bywarp.lightkit.util;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 public class StringUtils {
@@ -26,6 +29,17 @@ public class StringUtils {
             "(?!255\\.255\\.255\\.255)(25[0-5]|2[0-4]\\d|[1]\\d\\d|[1-9]\\d|[1-9])" +
             "(\\.(25[0-5]|2[0-4]\\d|[1]\\d\\d|[1-9]\\d|\\d)){3}");
     public static final Pattern IPV6_REGEX = Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
+
+    private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<Long, String>() {
+        {
+            put(1_000L, "k");
+            put(1_000_000L, "M");
+            put(1_000_000_000L, "G");
+            put(1_000_000_000_000L, "T");
+            put(1_000_000_000_000_000L, "P");
+            put(1_000_000_000_000_000_000L, "E");
+        }
+    };
 
     /**
      * Collects arguments and separates
@@ -146,6 +160,68 @@ public class StringUtils {
         }
 
         return input.replaceAll("\\d", replacement);
+    }
+
+    /**
+     * Creates a localized number string
+     * from a long value.
+     *
+     * @param value the input long
+     * @return the localized number
+     */
+    public static String formatNumber(long value) {
+        if (value == Long.MIN_VALUE) return formatNumber(Long.MIN_VALUE + 1);
+        if (value < 0) return "-" + formatNumber(-value);
+        if (value < 1000) return Long.toString(value);
+
+        Map.Entry<Long, String> e = SUFFIXES.floorEntry(value);
+        Long divideBy = e.getKey();
+        String suffix = e.getValue();
+
+        long truncated = value / (divideBy / 10);
+        boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10.0);
+        return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
+    }
+
+    /**
+     * Counts the number of words in a string.
+     *
+     * @param input the input string
+     * @return the number of words
+     */
+    public static int countWords(String input) {
+        int wordCount = 0;
+
+        boolean word = false;
+        int endOfLine = input.length() - 1;
+
+        for (int i = 0; i < input.length(); i++) {
+            if (Character.isLetter(input.charAt(i)) && i != endOfLine) {
+                word = true;
+            } else if (!Character.isLetter(input.charAt(i)) && word) {
+                wordCount++;
+                word = false;
+            } else if (Character.isLetter(input.charAt(i)) && i == endOfLine) {
+                wordCount++;
+            }
+        }
+        return wordCount;
+    }
+
+    /**
+     * Repeats a string n times.
+     *
+     * @param string the input string
+     * @param number the amount of repetitions
+     * @return the repeated string
+     */
+    public static String repeat(String string, int number) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < number; i++) {
+            sb.append(string);
+        }
+
+        return sb.toString().trim();
     }
 
 }
