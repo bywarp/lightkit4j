@@ -50,6 +50,7 @@ configurations {
 
 dependencies {
     compile group: 'org.json', name: 'json', version: '20180130'
+    compile group: 'com.konghq', name: 'unirest-java', version: '3.9.00'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 

@@ -15,16 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package co.bywarp.lightkit.util;
+package co.bywarp.lightkit.util.webhook.embeds;
+
+import co.bywarp.lightkit.json.JsonSerializable;
+
+import org.json.JSONObject;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor(staticName = "construct")
-public class Pair<K, V> {
-    private K left;
-    private V right;
+@AllArgsConstructor
+public class DiscordEmbedField implements JsonSerializable {
+
+    private String name;
+    private Object value;
+    private boolean inline;
+
+    @Override
+    public JSONObject toJson() {
+        return new JSONObject()
+                .put("name", name)
+                .put("value", value)
+                .put("inline", inline);
+    }
+
 }
