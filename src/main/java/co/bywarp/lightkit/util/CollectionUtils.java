@@ -17,12 +17,14 @@
 
 package co.bywarp.lightkit.util;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import lombok.NonNull;
@@ -40,6 +42,78 @@ public class CollectionUtils {
     @SafeVarargs
     public static <T> List<T> collect(T... items) {
         return new ArrayList<>(Arrays.asList(items));
+    }
+
+    /**
+     * Returns whether or not a given list contains any
+     * elements that conform to the provided predicate.
+     *
+     * @param list the list to search
+     * @param predicate the provided predicate
+     * @return if the list contains an element conforming to the predicate
+     */
+    public static <T> boolean contains(List<T> list, Predicate<T> predicate) {
+        return list
+                .stream()
+                .anyMatch(predicate);
+    }
+
+    /**
+     * Returns whether or not a given map contains
+     * a key/value pair via a provided predicate.
+     *
+     * @param map the map to search
+     * @param predicate the provided predicate
+     *
+     * @return if the map contains the key/value pair
+     */
+    public static <K, V> boolean contains(Map<K, V> map, BiPredicate<K, V> predicate) {
+        return map
+                .entrySet()
+                .stream()
+                .anyMatch(ent -> predicate
+                        .test(ent.getKey(), ent.getValue()));
+    }
+
+    /**
+     * Attempts to retrieve a key/value pair from the provided
+     * map through the use of a provided predicate.
+     *
+     * @param map the map to search
+     * @param predicate the predicate to search with
+     * @return the value, if found
+     */
+    public static <K, V> Map.Entry<K, V> get(Map<K, V> map, BiPredicate<K, V> predicate) {
+        return map
+                .entrySet()
+                .stream()
+                .filter(ent -> predicate
+                        .test(ent.getKey(), ent.getValue()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Attempts to retrieve a key/value pair from the provided
+     * map through the use of a provided predicate, or otherwise
+     * return the provided default key/value pair via a {@link BiPredicate}.
+     *
+     * @param map the map to search
+     * @param predicate the predicate to search with
+     * @param defaultValue the default key/value pair
+     *
+     * @return the value, if found, or the default value
+     */
+    public static <K, V> Map.Entry<K, V> getOrDefault(Map<K, V> map, BiPredicate<K, V> predicate, BiOptional<K, V> defaultValue) {
+        return map
+                .entrySet()
+                .stream()
+                .filter(ent -> predicate
+                        .test(ent.getKey(), ent.getValue()))
+                .findFirst()
+                .orElse(new AbstractMap.SimpleEntry<>(
+                        defaultValue.getKey(),
+                        defaultValue.getValue()));
     }
 
     /**

@@ -198,10 +198,16 @@ public class StringUtils {
         for (int i = 0; i < input.length(); i++) {
             if (Character.isLetter(input.charAt(i)) && i != endOfLine) {
                 word = true;
-            } else if (!Character.isLetter(input.charAt(i)) && word) {
+                continue;
+            }
+
+            if (!Character.isLetter(input.charAt(i)) && word) {
                 wordCount++;
                 word = false;
-            } else if (Character.isLetter(input.charAt(i)) && i == endOfLine) {
+                continue;
+            }
+
+            if (Character.isLetter(input.charAt(i)) && i == endOfLine) {
                 wordCount++;
             }
         }

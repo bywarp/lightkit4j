@@ -57,7 +57,6 @@ public class IOUtils {
      */
     public static String toString(URL url, Charset charset) throws IOException {
         InputStream is = url.openStream();
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset));
         String ret = IOUtils.readAll(reader);
         reader.close();
@@ -75,7 +74,6 @@ public class IOUtils {
     public static String toString(URL url) throws IOException {
         return IOUtils.toString(url, Charset.defaultCharset());
     }
-
 
     /**
      * Reads all the lines of a BufferedReader
@@ -98,7 +96,6 @@ public class IOUtils {
     public static boolean isReadable(File file) {
         return file.exists() && !file.isDirectory();
     }
-
 
 }
 

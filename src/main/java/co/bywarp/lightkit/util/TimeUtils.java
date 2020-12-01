@@ -32,7 +32,6 @@ public class TimeUtils {
     private static DecimalFormat STD_DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     public static final long DAY = 24 * 60 * 60 * 1000;
-    public static final long LONG_NAN = -7777L;
 
     /**
      * Formats a millis time string
@@ -136,28 +135,21 @@ public class TimeUtils {
         String s = second + " second" + numberEnding(second);
 
         StringBuilder sb = new StringBuilder();
-        if (year != 0) {
-            sb.append(y + ", ");
-        }
-        if (month != 0) {
-            sb.append(mo + ", ");
-        }
-        if (days != 0) {
-            sb.append(d + ", ");
-        }
-        if (hours != 0) {
-            sb.append(h + ", ");
-        }
-        if (minutes != 0) {
-            sb.append(m + ", ");
-        }
+        if (year != 0) sb.append(y + ", ");
+        if (month != 0) sb.append(mo + ", ");
+        if (days != 0) sb.append(d + ", ");
+        if (hours != 0) sb.append(h + ", ");
+        if (minutes != 0) sb.append(m + ", ");
+
         sb = new StringBuilder(sb.substring(0, Math.max(0, sb.length() - 2)));
         if ((year != 0 || month != 0 || days != 0 || minutes != 0 || hours != 0) && second != 0) {
             sb.append(", " + s);
         }
+
         if (year == 0 && month == 0 && days == 0 && minutes == 0 && hours == 0) {
             sb.append(s);
         }
+
         return sb.toString();
     }
 
@@ -184,28 +176,21 @@ public class TimeUtils {
         String s = second + "s";
 
         StringBuilder sb = new StringBuilder();
-        if (year != 0) {
-            sb.append(y + ", ");
-        }
-        if (month != 0) {
-            sb.append(mo + ", ");
-        }
-        if (days != 0) {
-            sb.append(d + ", ");
-        }
-        if (hours != 0) {
-            sb.append(h + ", ");
-        }
-        if (minutes != 0) {
-            sb.append(m + ", ");
-        }
+        if (year != 0) sb.append(y + ", ");
+        if (month != 0) sb.append(mo + ", ");
+        if (days != 0) sb.append(d + ", ");
+        if (hours != 0) sb.append(h + ", ");
+        if (minutes != 0) sb.append(m + ", ");
+
         sb = new StringBuilder(sb.substring(0, Math.max(0, sb.length() - 2)));
         if ((year != 0 || month != 0 || days != 0 || minutes != 0 || hours != 0) && second != 0) {
             sb.append(", " + s);
         }
+
         if (year == 0 && month == 0 && days == 0 && minutes == 0 && hours == 0) {
             sb.append(s);
         }
+
         return sb.toString();
     }
 
@@ -234,16 +219,11 @@ public class TimeUtils {
             return false;
         }
 
-        // TODO: Add leap year detection
         if (month == 2 && day > 29) {
             return false;
         }
 
-        if (month < 1 || month > 12) {
-            return false;
-        }
-
-        return true;
+        return month >= 1 && month <= 12;
     }
 
     /**

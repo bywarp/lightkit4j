@@ -73,6 +73,7 @@ public class RandomUtils {
         if (list.isEmpty()) {
             return null;
         }
+
         return list.get(random(0, list.size()));
     }
 
@@ -90,6 +91,7 @@ public class RandomUtils {
         if (map.isEmpty()) {
             return null;
         }
+
         return random(new ArrayList<>(map.entrySet()));
     }
 
